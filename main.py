@@ -1,13 +1,18 @@
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 import json
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/', methods=['POST'])
+@cross_origin()
 def index():
     dados = json.loads(request.data)
     altura = float(dados['altura'])
-    peso = float(dados['peso'])
+    # peso = float(dados['peso'])
+    # altura = dados['altura']
+    peso = dados['peso']
+    print(altura, peso)
     imc = float(peso / (altura **2))
     msg = ""
     calc_imc = str(f'{imc:.2f}')
