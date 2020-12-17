@@ -9,12 +9,12 @@ CORS(app)
 def index():
     dados = json.loads(request.data)
     altura = float(dados['altura'])
-    # peso = float(dados['peso'])
-    # altura = dados['altura']
-    peso = dados['peso']
+    peso = float(dados['peso'])
     print(altura, peso)
-    imc = float(peso / (altura **2))
     msg = ""
+    if not peso or not altura:
+        return {"msg":"Altura ou peso vazio"}
+    imc = float((peso) / (altura **2))
     calc_imc = str(f'{imc:.2f}')
     if imc < 18.5:
         msg = 'abaixo do peso'
